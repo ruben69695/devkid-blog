@@ -1,0 +1,1353 @@
+<!DOCTYPE html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="theme" content="Chirpy v2.6.2"><meta name="generator" content="Jekyll v4.1.1" /><meta property="og:title" content="Testing like ninjas in C#" /><meta name="author" content="DevKid" /><meta property="og:locale" content="en_US" /><meta name="description" content="Este seminario, está orientado para el desarrollo de pruebas funcionales utilizando el lenguaje C# para la plataforma .NET Core de Microsoft, pero la teoría es común para cualquier otro lenguaje, como Python, Java, Javascript… Y un largo etc." /><meta property="og:description" content="Este seminario, está orientado para el desarrollo de pruebas funcionales utilizando el lenguaje C# para la plataforma .NET Core de Microsoft, pero la teoría es común para cualquier otro lenguaje, como Python, Java, Javascript… Y un largo etc." /><link rel="canonical" href="https://ruben69695.github.io/devkid-blog/posts/testing-like-ninjas-csharp-seminay/" /><meta property="og:url" content="https://ruben69695.github.io/devkid-blog/posts/testing-like-ninjas-csharp-seminay/" /><meta property="og:site_name" content="DevKid Blog" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2019-05-21T17:59:22+02:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="Testing like ninjas in C#" /><meta name="twitter:site" content="@rarrebolaedcm15" /><meta name="twitter:creator" content="@DevKid" /><meta name="google-site-verification" content="google_meta_tag_verification" /> <script type="application/ld+json"> {"headline":"Testing like ninjas in C#","dateModified":"2019-05-21T17:59:22+02:00","datePublished":"2019-05-21T17:59:22+02:00","description":"Este seminario, está orientado para el desarrollo de pruebas funcionales utilizando el lenguaje C# para la plataforma .NET Core de Microsoft, pero la teoría es común para cualquier otro lenguaje, como Python, Java, Javascript… Y un largo etc.","mainEntityOfPage":{"@type":"WebPage","@id":"https://ruben69695.github.io/devkid-blog/posts/testing-like-ninjas-csharp-seminay/"},"@type":"BlogPosting","url":"https://ruben69695.github.io/devkid-blog/posts/testing-like-ninjas-csharp-seminay/","author":{"@type":"Person","name":"DevKid"},"@context":"https://schema.org"}</script><title>Testing like ninjas in C# | DevKid Blog</title><link rel="shortcut icon" href="/devkid-blog/assets/img/favicons/favicon.ico" type="image/x-icon"><link rel="icon" href="/devkid-blog/assets/img/favicons/favicon.ico" type="image/x-icon"><link rel="apple-touch-icon" href="/devkid-blog/assets/img/favicons/apple-icon.png"><link rel="apple-touch-icon" href="/devkid-blog/assets/img/favicons/apple-icon-precomposed.png"><link rel="apple-touch-icon" sizes="57x57" href="/devkid-blog/assets/img/favicons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/devkid-blog/assets/img/favicons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/devkid-blog/assets/img/favicons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/devkid-blog/assets/img/favicons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/devkid-blog/assets/img/favicons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/devkid-blog/assets/img/favicons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/devkid-blog/assets/img/favicons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/devkid-blog/assets/img/favicons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/devkid-blog/assets/img/favicons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/devkid-blog/assets/img/favicons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/devkid-blog/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/devkid-blog/assets/img/favicons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/devkid-blog/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/devkid-blog/assets/img/favicons/manifest.json"><meta name='msapplication-config' content='/devkid-blog/assets/img/favicons/browserconfig.xml'><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/devkid-blog/assets/img/favicons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://fonts.gstatic.com"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin="use-credentials"><link rel="dns-prefetch" href="https://www.google-analytics.com"><link rel="preconnect" href="https://www.googletagmanager.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><link rel="preconnect" href="cdn.jsdelivr.net"><link rel="dns-prefetch" href="cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha256-LA89z+k9fjgMKQ/kq4OO2Mrf8VltYml/VES+Rg0fh20=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous"><link rel="preload" as="style" href="/devkid-blog/assets/css/post.css"><link rel="stylesheet" href="/devkid-blog/assets/css/post.css"><link rel="preload" as="style" href="/devkid-blog/assets/css/lib/bootstrap-toc.min.css"><link rel="stylesheet" href="/devkid-blog/assets/css/lib/bootstrap-toc.min.css" /> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script> <script async src="https://cdn.jsdelivr.net/combine/npm/popper.js@1.15.0,npm/bootstrap@4/dist/js/bootstrap.min.js"></script> <script async src="/devkid-blog/assets/js/post.min.js"></script> <script defer src="/devkid-blog/app.js"></script><body data-spy="scroll" data-target="#toc"><div id="sidebar" class="d-flex flex-column"><div id="nav-wrapper"><div id="profile-wrapper" class="d-flex flex-column"><div id="avatar" class="d-flex justify-content-center"> <a href="/devkid-blog/" alt="avatar"> <img src="/devkid-blog/assets/img/sample/avatar.jpeg" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="profile-text mt-3"><div class="site-title"> <a href="/devkid-blog/">DevKid Blog</a></div><div class="site-subtitle font-italic">Developer | Techie | Maker.</div></div></div><ul class="nav flex-column"><li class="nav-item d-flex justify-content-center "> <a href="/devkid-blog/" class="nav-link d-flex justify-content-center align-items-center w-100"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item d-flex justify-content-center "> <a href="/devkid-blog/tabs/categories/" class="nav-link d-flex justify-content-center align-items-center w-100"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item d-flex justify-content-center "> <a href="/devkid-blog/tabs/tags/" class="nav-link d-flex justify-content-center align-items-center w-100"> <i class="fa-fw fas fa-tags ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item d-flex justify-content-center "> <a href="/devkid-blog/tabs/archives/" class="nav-link d-flex justify-content-center align-items-center w-100"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item d-flex justify-content-center "> <a href="/devkid-blog/tabs/about/" class="nav-link d-flex justify-content-center align-items-center w-100"> <i class="fa-fw fas fa-info ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul></div><div class="sidebar-bottom d-flex flex-wrap justify-content-around mt-4"> <span id="mode-toggle-wrapper"> <i class="mode-toggle fas fa-sun" dark-mode-invisible></i> <i class="mode-toggle fas fa-moon" light-mode-invisible></i> <script type="text/javascript"> class ModeToggle { static get MODE_KEY() { return "mode"; } static get DARK_MODE() { return "dark"; } static get LIGHT_MODE() { return "light"; } constructor() { if (this.mode != null) { if (this.mode == ModeToggle.DARK_MODE) { if (!this.isSysDarkPrefer) { this.setDark(); } } else { if (this.isSysDarkPrefer) { this.setLight(); } } } var self = this; /* always follow the system prefers */ this.sysDarkPrefers.addListener(function() { if (self.mode != null) { if (self.mode == ModeToggle.DARK_MODE) { if (!self.isSysDarkPrefer) { self.setDark(); } } else { if (self.isSysDarkPrefer) { self.setLight(); } } self.clearMode(); } }); } /* constructor() */ setDark() { $('html').attr(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); } setLight() { $('html').attr(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); } clearMode() { $('html').removeAttr(ModeToggle.MODE_KEY); sessionStorage.removeItem(ModeToggle.MODE_KEY); } get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); } get isSysDarkPrefer() { return this.sysDarkPrefers.matches; } get isDarkMode() { return this.mode == ModeToggle.DARK_MODE; } get isLightMode() { return this.mode == ModeToggle.LIGHT_MODE; } get hasMode() { return this.mode != null; } get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); } flipMode() { if (this.hasMode) { if (this.isSysDarkPrefer) { if (this.isLightMode) { this.clearMode(); } else { this.setLight(); } } else { if (this.isDarkMode) { this.clearMode(); } else { this.setDark(); } } } else { if (this.isSysDarkPrefer) { this.setLight(); } else { this.setDark(); } } } /* flipMode() */ } /* ModeToggle */ let toggle = new ModeToggle(); $(".mode-toggle").click(function() { toggle.flipMode(); }); </script> </span> <span class="icon-border"></span> <a href="https://github.com/ruben69695" aria-label="github" target="_blank" rel="noopener"> <i class="fab fa-github-alt"></i> </a> <a href="https://twitter.com/rarrebolaedcm15" aria-label="twitter" target="_blank" rel="noopener"> <i class="fab fa-twitter"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['ruben.arre6','gmail.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/devkid-blog/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper" class="row justify-content-center topbar-down"><div id="topbar" class="col-11 d-flex h-100 align-items-center justify-content-between"> <span id="breadcrumb"> <span> <a href="/devkid-blog/"> Posts </a> </span> <span>Testing like ninjas in C#</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" placeholder="Search..."> <i class="fa fa-times-circle fa-fw" id="search-cleaner"></i> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper"><div id="main"><div class="row"><div id="post-wrapper" class="col-12 col-lg-11 col-xl-8"><div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><h1 data-toc-skip>Testing like ninjas in C#</h1><div class="post-meta text-muted d-flex flex-column"><div> Posted <span class="timeago " data-toggle="tooltip" data-placement="bottom" title="Tue, May 21, 2019, 5:59 PM +0200" > May 21, 2019 <i class="unloaded">2019-05-21T17:59:22+02:00</i> </span> by <span class="author"> DevKid </span></div></div><div class="post-content"><p>Este seminario, está orientado para el desarrollo de pruebas funcionales utilizando el lenguaje C# para la plataforma .NET Core de Microsoft, pero la teoría es común para cualquier otro lenguaje, como Python, Java, Javascript… Y un largo etc.</p><p>The content of this seminary it’s on <a href="https://github.com/ruben69695/testing-like-ninjas">my github</a></p><h2 id="objetivos">Objetivos</h2><ol><li>Aprender la importancia de las pruebas de software<li>Indagar en los diferentes tipos de pruebas<li>Conocer las librerías más comunes para pruebas unitarias en .NET<li>Aprender a controlar el poder del Mocking y la Inyección de Dependencia<li>Convertirte en un ninja haciendo pruebas unitarias usando .NET Core<li>Quiero que te sientas mejor desarrollador después de la chapa</ol><h2 id="pruebas-de-software">Pruebas de Software</h2><ul><li>Actividades que forman parte del proceso de desarrollo de software<li>Aseguran que la aplicación funcione correctamente<li>Proporcionan información sobre la calidad del producto</ul><h2 id="tipos-de-pruebas">Tipos de pruebas</h2><ul><li>Funcionales<ul><li>Comprueban que el producto funcione acorde a los requisitos funcionales<li>Detectan posibles errores durante la fase de desarrollo<li>La gran mayoría son automatizadas</ul><li>No funcionales<ul><li>Ayudan a conocer que riesgos puede correr el producto en un futuro<li>Nos permiten saber si el producto tiene un mal desempeño o un bajo rendimiento en entornos de producción</ul></ul><h3 id="tipos-de-pruebas-funcionales">Tipos de pruebas funcionales</h3><ul><li>Pruebas unitarias<li>Pruebas de regresión<li>Pruebas de integración</ul><h2 id="pruebas-unitarias">Pruebas unitarias</h2><ul><li>Centradas en probar únicamente funcionalidades concretas del programa cómo métodos, funciones o clases.<li>Nos aseguran que el código principal está funcionando como esperábamos</ul><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7 " data-src="https://i.ibb.co/6ybZfhb/logger-library-2222.png[" alt="UNIT TEST EXAMPLE" /></p><h3 id="requisitos">Requisitos</h3><ul><li>Automatizable<li>Repetibles<li>Completas<li>Independientes<li>Profesionales<li>Rápidas de crear</ul><h3 id="ventajas">Ventajas</h3><ul><li>Fomentan la refactorización<li>Simplifican las pruebas de integración<li>Documentan el código<li>Nos permiten programar dependiendo de abstracciones y no de implementaciones<li>Los errores son más fáciles de localizar</ul><h3 id="bad-practice">Bad Practice</h3><p>La clase StorageData depende completamente de DbStorage (Una clase de acceso a base de datos), por lo tanto StorageData no se puede probar de forma unitaria. <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7 " data-src="https://i.ibb.co/wcNXMkJ/storage-library-unit-tests-bad-2222.png" alt="Bad Practice" /></p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre><td class="rouge-code"><pre><span class="k">public</span> <span class="k">class</span> <span class="nc">StorageData</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">DbStorage</span> <span class="n">_storage</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">StorageData</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">_storage</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">DbStorage</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">DbStorage</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">Save</span><span class="p">(</span><span class="kt">object</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* Access to database */</span> <span class="k">return</span> <span class="k">true</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>   
+</pre></table></code></div></div><h3 id="good-practice">Good Practice</h3><p>Extrayendo los métodos de DbStorage a una interfaz y substituyendo la dependencia de la clase StorageData por la abstracción (interfaz), podremos simular el funcionamiento de su dependencia en las pruebas unitarias. Ahora StorageData es fácil de probar.</p><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7 " data-src="https://i.ibb.co/Vpzht7m/storage-library-unit-tests-good-2222.png" alt="Good Practice" /></p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre><td class="rouge-code"><pre><span class="k">public</span> <span class="k">class</span> <span class="nc">StorageData</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IStorage</span> <span class="n">_storage</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nf">StorageData</span><span class="p">(</span><span class="n">IStorage</span> <span class="n">storage</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_storage</span> <span class="p">=</span> <span class="n">storage</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">interface</span> <span class="nc">IStorage</span>
+<span class="p">{</span>
+    <span class="kt">bool</span> <span class="nf">Save</span><span class="p">(</span><span class="kt">object</span> <span class="n">item</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">DbStorage</span> <span class="p">:</span> <span class="n">IStorage</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">Save</span><span class="p">(</span><span class="kt">object</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">true</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><h3 id="frameworks">Frameworks</h3><p>Para .NET en general tenemos disponibles una gran variedad de Frameworks que nos ayudarán a poder crear proyectos de pruebas unitarias para nuestro producto, cómo:</p><ul><li>MSTest<li><strong>NUnit</strong><li>xUnit</ul><h3 id="ejemplo-de-pruebas-con-nunit">Ejemplo de pruebas con NUnit</h3><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre><td class="rouge-code"><pre><span class="p">[</span><span class="n">Test</span><span class="p">]</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">LogError_CallMethod_ShouldSetLastErrorProperty</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">_loggerHelper</span><span class="p">.</span><span class="nf">LogError</span><span class="p">(</span><span class="s">"error2"</span><span class="p">);</span>
+    
+    <span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">_loggerHelper</span><span class="p">.</span><span class="n">LastError</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="nf">EqualTo</span><span class="p">(</span><span class="s">"error2"</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="p">[</span><span class="n">Test</span><span class="p">]</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">LogError_CallMethod_ShouldRaiseErrorLoggedEvent</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">bool</span> <span class="n">eventRaised</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+
+    <span class="n">_loggerHelper</span><span class="p">.</span><span class="n">ErrorLogged</span> <span class="p">+=</span> <span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">guid</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">eventRaised</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+    <span class="n">_loggerHelper</span><span class="p">.</span><span class="nf">LogError</span><span class="p">(</span><span class="s">"error3"</span><span class="p">);</span>
+    
+    <span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">eventRaised</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">True</span><span class="p">);</span>            
+<span class="p">}</span>
+
+<span class="p">[</span><span class="n">Test</span><span class="p">]</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">LogError_PassEmptyError_ShouldThrowArgumentNullException</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="n">_loggerHelper</span><span class="p">.</span><span class="nf">LogError</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">),</span> 
+        <span class="n">Throws</span><span class="p">.</span><span class="n">ArgumentNullException</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></table></code></div></div><h2 id="inyección-de-dependencia">Inyección de dependencia</h2><p>La inyección de dependencia es un patrón de diseño que nos permite poder inyectar una dependencia en aquellas clases que las necesiten. Hay distintas formas de inyección:</p><ul><li>Por constructor<li>Por propiedad<li>Por método</ul><h3 id="ventajas-de-inyectar-abstracciones">Ventajas de inyectar abstracciones</h3><ul><li>Nuestro código estará menos acoplado<li>Para las pruebas unitarias nos permitirá poder simular el funcionamiento de estos objetos (dependencias), creando nuestras propias implementaciones e inyectándolas cuando estemos probando.<li>Seguiríamos el principio de inversión de la dependencia (SOLI<strong>D</strong>)</ul><h3 id="ejemplo-por-constructor">Ejemplo por constructor</h3><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre><span class="k">public</span> <span class="k">class</span> <span class="nc">StorageData</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IStorage</span> <span class="n">_storage</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nf">StorageData</span><span class="p">(</span><span class="n">IStorage</span> <span class="n">storage</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_storage</span> <span class="p">=</span> <span class="n">storage</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><h3 id="ejemplo-por-método">Ejemplo por método</h3><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre><td class="rouge-code"><pre><span class="k">public</span> <span class="k">class</span> <span class="nc">Calculator</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="nf">MakeOperation</span><span class="p">(</span><span class="n">IOperation</span> <span class="n">operation</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">operation</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentNullException</span><span class="p">(</span><span class="k">nameof</span><span class="p">(</span><span class="n">operation</span><span class="p">));</span>
+
+        <span class="k">return</span> <span class="n">operation</span><span class="p">.</span><span class="nf">Calculate</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><h3 id="ejemplo-por-propiedad">Ejemplo por propiedad</h3><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre><td class="rouge-code"><pre><span class="k">public</span> <span class="k">class</span> <span class="nc">FilterList</span> <span class="p">:</span> <span class="n">SuperList</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">IFilter</span> <span class="n">filter</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">MakeFilter</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">filter</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Invalid, I don't have any filter assigned yet, assign one first"</span><span class="p">);</span>
+        
+        <span class="n">ViewCollection</span> <span class="p">=</span> <span class="n">filter</span><span class="p">.</span><span class="nf">MakeFilter</span><span class="p">(</span><span class="n">SourceCollection</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="nc">Program</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">customList</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">FilterList</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">5</span><span class="p">});</span>
+        <span class="n">customList</span><span class="p">.</span><span class="n">Filter</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">PrimeFilter</span><span class="p">();</span> <span class="c1">// Class that implements IFilter</span>
+        <span class="n">customList</span><span class="p">.</span><span class="nf">MakeFilter</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</pre></table></code></div></div><h2 id="mocking">Mocking</h2><p>Nos permite poder simular el funcionamiento de las dependencias (objetos complejos) en la clase que estamos probando. Algunos ejemplos de dependencias en nuestras clases:</p><ul><li>Acceso a recursos<li>Acceso a base de datos<li>Acceso a red o Internet<li>Lógica de negocio<li>Interacción con el sistema</ul><h3 id="herramientas-de-mocking">Herramientas de mocking</h3><p>En .NET tenemos disponibles un conjunto de frameworks para realizar mocks (Fake object implementations), son los siguientes:</p><ul><li><strong>NSubstitute</strong><li>Moq4<li>Rhino Mocks</ul><h2 id="nunit">NUnit</h2><ul><li>Framework open source para el desarrollo de pruebas unitarias<li>Nos sirve también para pruebas de integración<li>Fork del conocido framework JUnit de Java<li>Diseñado para TDD (Test Driven Development)</ul><h3 id="plataformas-soportadas">Plataformas soportadas</h3><ul><li>.NET Framework 2.0+<li>.NET Standard 1.4+<li>.NET Core</ul><h3 id="recursos">Recursos</h3><ul><li><a href="https://github.com/nunit/nunit">Repositorio de GitHub</a><li><a href="https://www.nuget.org/packages/NUnit">Paquete Nuget</a><li><a href="https://github.com/nunit/docs/wiki/NUnit-Documentation">Documentación</a></ul><h3 id="código">Código</h3><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+</pre><td class="rouge-code"><pre><span class="cm">/* -- Atributo que marca la clase como colección de tests -- */</span>
+<span class="p">[</span><span class="n">TestFixture</span><span class="p">]</span> 
+<span class="k">public</span> <span class="k">class</span> <span class="nc">MyStackTest</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="n">MyStack</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">_stack</span><span class="p">;</span>
+    
+    <span class="cm">/* -- Atributo que marca este método para que se ejecute siempre antes de cada tests  -- */</span>
+    <span class="p">[</span><span class="n">SetUp</span><span class="p">]</span> 
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Setup</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">_stack</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MyStack</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Un simple tests */</span>
+    <span class="p">[</span><span class="n">Test</span><span class="p">]</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Push_PushAnItem_ReturnStackWithThePushedItem</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">stack</span> <span class="p">=</span> <span class="n">_stack</span><span class="p">.</span><span class="nf">Push</span><span class="p">(</span><span class="s">"foo"</span><span class="p">);</span>
+
+        <span class="cm">/* Verificación de los resultados del test, lo que identifica si el tests pasa o no */</span>
+        <span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">stack</span><span class="p">.</span><span class="n">Count</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="nf">EqualTo</span><span class="p">(</span><span class="m">1</span><span class="p">));</span> 
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">Test</span><span class="p">]</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Push_PushAnItem_SourceStackIsImmutableDueOperation</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">_stack</span><span class="p">.</span><span class="nf">Push</span><span class="p">(</span><span class="s">"foo"</span><span class="p">);</span>
+        <span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">_stack</span><span class="p">.</span><span class="n">Count</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">Zero</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><h3 id="resultado-de-ejecución">Resultado de ejecución</h3><div class="language-plaintext highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>Iniciando la ejecución de pruebas, espere...
+
+Total de pruebas: 27. Correctas: 27. Con error: 0. Omitidas: 0.
+La serie de pruebas se ejecutó correctamente.
+Tiempo de ejecución de las pruebas: 1,5129 Segundos
+</pre></table></code></div></div><h2 id="creando-el-proyecto-en-net-core-con-nunit">Creando el proyecto en .NET Core con NUnit</h2><p>Abrimos terminal, creamos un directorio para nuestro proyecto, nos situamos en él, e introducimos el siguiente comando para crear la solución</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>dotnet new sln 
+</pre></table></code></div></div><p>Creamos un directorio con nombre “utils” al mismo nivel que la solución</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="nb">.</span>
+├── utils
+└── testing-example.sln
+1 directory, 1 file
+</pre></table></code></div></div><p>Nos situamos en el directorio “utils” y creamos un proyecto de tipo librería</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>dotnet new classlib
+</pre></table></code></div></div><p>El comando nos creará la siguiente estructura</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="nb">.</span>
+├── Class1.cs
+├── utils.csproj
+└── obj
+    ├── utils.csproj.nuget.cache
+    ├── utils.csproj.nuget.g.props
+    ├── utils.csproj.nuget.g.targets
+    └── project.assets.json
+1 directory, 6 files
+</pre></table></code></div></div><p>Renombramos la clase Class1.cs a JsonSerializer.cs y creamos la función Serialize sin implementación:</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Newtonsoft.Json</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">utils</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">JsonSerializer</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Serialize</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">item</span><span class="p">)</span> <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="k">class</span>
+        <span class="err">{</span>
+            <span class="nc">throw</span> <span class="k">new</span> <span class="nf">NotImplementedException</span><span class="p">(</span><span class="s">"Not implemented yet..."</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Como para la futura implementación usaremos una librería de terceros en el proyecto utils para transformar todo a formato json, vamos a añadir el paquete nuget para satisfacer las dependencias:</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>dotnet add utils/utils.csproj package Newtonsoft.Json
+</pre></table></code></div></div><p>Ahora vamos a crear otra clase en utils, para representar la información básica de un usuario, llamaremos a la clase User.cs</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre><td class="rouge-code"><pre><span class="k">namespace</span> <span class="nn">utils</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">User</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">LastName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">Age</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Email</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Volvemos al directorio dónde se encuentra la solución y agregamos el proyecto utils.csproj a la solución</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>dotnet sln add utils/utils.csproj
+</pre></table></code></div></div><h3 id="creando-el-proyecto-de-pruebas-unitarias">Creando el proyecto de pruebas unitarias</h3><p>Primero de todo creamos el directorio utils.unittests. La estructura quedará de la siguiente forma</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre><span class="nb">.</span>
+├── testing-example.sln
+├── utils
+│   ├── JsonSerializer.cs
+│   ├── User.cs
+│   ├── obj
+│   │   ├── project.assets.json
+│   │   ├── utils.csproj.nuget.cache
+│   │   ├── utils.csproj.nuget.g.props
+│   │   └── utils.csproj.nuget.g.targets
+│   └── utils.csproj
+└── utils.unittests
+3 directories, 8 files
+</pre></table></code></div></div><p>Hacemos del directorio utils.unittests nuestro directorio actual y creamos el nuevo proyecto de tests</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>dotnet new nunit
+</pre></table></code></div></div><p>El comando nos creara un proyecto de tests usando NUnit como librería de pruebas.</p><div class="language-xml highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre><span class="nt">&lt;Project</span> <span class="na">Sdk=</span><span class="s">"Microsoft.NET.Sdk"</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;PropertyGroup&gt;</span>
+    <span class="nt">&lt;TargetFramework&gt;</span>netcoreapp2.2<span class="nt">&lt;/TargetFramework&gt;</span>
+
+    <span class="nt">&lt;IsPackable&gt;</span>false<span class="nt">&lt;/IsPackable&gt;</span>
+  <span class="nt">&lt;/PropertyGroup&gt;</span>
+
+  <span class="nt">&lt;ItemGroup&gt;</span>
+    <span class="nt">&lt;PackageReference</span> <span class="na">Include=</span><span class="s">"nunit"</span> <span class="na">Version=</span><span class="s">"3.11.0"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;PackageReference</span> <span class="na">Include=</span><span class="s">"NUnit3TestAdapter"</span> <span class="na">Version=</span><span class="s">"3.11.0"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;PackageReference</span> <span class="na">Include=</span><span class="s">"Microsoft.NET.Test.Sdk"</span> <span class="na">Version=</span><span class="s">"15.9.0"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/ItemGroup&gt;</span>
+
+<span class="nt">&lt;/Project&gt;</span>
+</pre></table></code></div></div><p>El proyecto de pruebas requiere de otros paquetes para poder correr las pruebas unitarias. “dotnet new” en el paso anterior nos añade SDK de Microsoft, el framework de pruebas NUnit y el NUnit test adapter. Ahora tenemos que añadir una referencia unidireccional entre el proyecto de pruebas y el proyecto de librería utils, usando el comando “dotnet add reference”:</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>dotnet add reference ../utils/utils.csproj
+</pre></table></code></div></div><p>La estructura de la solución queda de la siguiente forma:</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre><span class="nb">.</span>
+├── testing-example.sln
+├── utils
+│   ├── JsonSerializer.cs
+│   ├── User.cs
+│   ├── obj
+│   └── utils.csproj
+└── utils.tunitests
+    ├── JsonSerializerTests.cs
+    ├── obj
+    └── utils.unittests.csproj
+
+4 directories, 14 files
+</pre></table></code></div></div><p>Ahora agreguemos a la solución el proyecto de pruebas unitarias que acabamos de crear volviendo al directorio dónde se encuentra la solución</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>dotnet sln add utils.unittests/utils.unittests.csproj 
+</pre></table></code></div></div><h3 id="creando-nuestro-primer-test">Creando nuestro primer test</h3><p>Vayamos a realizar nuestra primera prueba unitaria, para ello vayamos a nuestro proyecto de tests y cambiemos el nombre de la clase UnitTest1 a JsonSerializerTests. Ahora escribamos nuestra clase de pruebas para probar la clase JsonSerializer. Mas adelante explicaremos cada cosa con más detalle:</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+</pre><td class="rouge-code"><pre><span class="k">using</span> <span class="nn">NUnit.Framework</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">utils</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">Tests</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">TestFixture</span><span class="p">]</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">JsonSerializerTests</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="n">JsonSerializer</span> <span class="n">_jsonSerializer</span><span class="p">;</span>
+
+        <span class="p">[</span><span class="n">SetUp</span><span class="p">]</span>
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Setup</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">_jsonSerializer</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">JsonSerializer</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="p">[</span><span class="n">Test</span><span class="p">]</span>
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Serialize_SerializeAnObject_ShouldSerializeItToJsonFormatString</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kt">string</span> <span class="n">expectedResult</span> <span class="p">=</span> <span class="s">"{\"Name\":\"Jack\",\"LastName\":\"Stilson\",\"Age\":28,\"Email\":\"jack23@test.com\"}"</span><span class="p">;</span>
+            <span class="kt">var</span> <span class="n">user</span> <span class="p">=</span> <span class="k">new</span> <span class="n">User</span> <span class="p">{</span> 
+                <span class="n">Name</span> <span class="p">=</span> <span class="s">"Jack"</span><span class="p">,</span> 
+                <span class="n">LastName</span> <span class="p">=</span> <span class="s">"Stilson"</span><span class="p">,</span> 
+                <span class="n">Age</span> <span class="p">=</span> <span class="m">28</span><span class="p">,</span> 
+                <span class="n">Email</span> <span class="p">=</span> <span class="s">"jack23@test.com"</span> 
+            <span class="p">};</span>
+
+            <span class="kt">string</span> <span class="n">result</span> <span class="p">=</span> <span class="n">_jsonSerializer</span><span class="p">.</span><span class="nf">Serialize</span><span class="p">(</span><span class="n">user</span><span class="p">);</span>
+
+            <span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="nf">EqualTo</span><span class="p">(</span><span class="n">expectedResult</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Una vez guardado vayamos a ejecutar las pruebas para ello utilizaremos el comando <strong>dotnet test</strong> que nos compilara todos los proyectos de la solución y además arrancara las pruebas buscando aquellos proyectos que sean de pruebas y ejecutará las pruebas.</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>dotnet <span class="nb">test</span>
+</pre></table></code></div></div><p>Como podemos observar, los test fallan, esto es debido a que no tenemos implementación en la clase JsonSerializer. Hagamos que los tests pasen aplicando la correcta implementación en el método Serialize:</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre><td class="rouge-code"><pre><span class="k">public</span> <span class="k">class</span> <span class="nc">JsonSerializer</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Serialize</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">item</span><span class="p">)</span> <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="k">class</span>
+    <span class="err">{</span>
+        <span class="nc">if</span><span class="p">(</span><span class="n">item</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentNullException</span><span class="p">(</span><span class="k">nameof</span><span class="p">(</span><span class="n">item</span><span class="p">));</span>
+
+        <span class="k">return</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="nf">SerializeObject</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Volvamos a pasar las pruebas:</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>dotnet <span class="nb">test</span>
+</pre></table></code></div></div><p>Ahora cómo veis las pruebas ya pasan correctamente:</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>Iniciando la ejecución de pruebas, espere...
+
+Total de pruebas: 1. Correctas: 1. Con error: 0. Omitidas: 0.
+La serie de pruebas se ejecutó correctamente.
+Tiempo de ejecución de las pruebas: 1,2999 Segundos
+</pre></table></code></div></div><p>Ahora que tenemos nuestra primera prueba, pasando correctamente y probando de forma unitaria una clase, vamos a pasar hacer otra clase pero esta vez no serializaremos un objeto a json lo haremos a XML. Para ello vamos al proyecto utils y vamos a agregar otra clase más, esta se llamará XmlSerializer y por ahora tampoco tendrá una implementación:</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre><td class="rouge-code"><pre><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Xml</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">utils</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">XmlSerializer</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Serialize</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">item</span><span class="p">)</span> <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="k">class</span>
+        <span class="err">{</span>
+            <span class="nc">throw</span> <span class="k">new</span> <span class="nf">NotImplementedException</span><span class="p">(</span><span class="s">"Not implemented yet..."</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Como para la futura implementación usaremos una librería de terceros en el proyecto utils para transformar todo a formato xml, vamos a añadir el paquete nuget para satisfacer las dependencias:</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>dotnet add utils/utils.csproj package Microsoft.XmlSerializer.Generator <span class="nt">--version</span> 2.1.0-preview3.19128.7
+</pre></table></code></div></div><p>Además tenemos que añadir una herramienta de .NET Core CLI al proyecto utils. Para ello editamos el fichero de proyecto utils.csproj y añadimos lo siguiente después de la etiqueta ItemGroup que ya existe y que contiene las referencias a los paquetes Nuget de los que depende nuestro proyecto.</p><div class="language-xml highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre><span class="nt">&lt;ItemGroup&gt;</span>
+    <span class="nt">&lt;DotNetCliToolReference</span> <span class="na">Include=</span><span class="s">"Microsoft.XmlSerializer.Generator"</span> <span class="na">Version=</span><span class="s">"2.1.0-preview3.19128.7"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/ItemGroup&gt;</span>
+</pre></table></code></div></div><p>Ahora vamos a crear una clase más de pruebas unitarias, para ello vamos al proyecto de pruebas, y agregamos una nueva clase de pruebas llamada XmlSerializerTests, tal cual así:</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+</pre><td class="rouge-code"><pre><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">NUnit.Framework</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">utils</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">Tests</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">TestFixture</span><span class="p">]</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">XmlSerializerTests</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="n">XmlSerializer</span> <span class="n">_xmlSerializer</span><span class="p">;</span>
+
+        <span class="p">[</span><span class="n">SetUp</span><span class="p">]</span>
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Setup</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">_xmlSerializer</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">XmlSerializer</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="p">[</span><span class="n">Test</span><span class="p">]</span>
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Serialize_SerializeAnObject_ShouldSerializeItToXmlFormatString</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kt">string</span> <span class="n">expectedResult</span> <span class="p">=</span> <span class="s">"&lt;?xml version=\"1.0\" encoding=\"utf-16\"?&gt;"</span> <span class="p">+</span>
+                <span class="s">"&lt;User xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"&gt;"</span> <span class="p">+</span>
+                    <span class="s">"&lt;Name&gt;Jack&lt;/Name&gt;"</span> <span class="p">+</span>
+                    <span class="s">"&lt;LastName&gt;Stilson&lt;/LastName&gt;"</span> <span class="p">+</span>
+                    <span class="s">"&lt;Age&gt;28&lt;/Age&gt;"</span> <span class="p">+</span>
+                    <span class="s">"&lt;Email&gt;jack23@test.com&lt;/Email&gt;"</span> <span class="p">+</span>
+                <span class="s">"&lt;/User&gt;"</span><span class="p">;</span>
+                
+            <span class="kt">var</span> <span class="n">user</span> <span class="p">=</span> <span class="k">new</span> <span class="n">User</span> <span class="p">{</span> 
+                <span class="n">Name</span> <span class="p">=</span> <span class="s">"Jack"</span><span class="p">,</span> 
+                <span class="n">LastName</span> <span class="p">=</span> <span class="s">"Stilson"</span><span class="p">,</span> 
+                <span class="n">Age</span> <span class="p">=</span> <span class="m">28</span><span class="p">,</span> 
+                <span class="n">Email</span> <span class="p">=</span> <span class="s">"jack23@test.com"</span> 
+            <span class="p">};</span>
+
+            <span class="kt">string</span> <span class="n">result</span> <span class="p">=</span> <span class="n">_xmlSerializer</span><span class="p">.</span><span class="nf">Serialize</span><span class="p">(</span><span class="n">user</span><span class="p">);</span>
+
+            <span class="n">Assert</span><span class="p">.</span><span class="nf">AreEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">expectedResult</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Ahora ejecutamos los tests</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>dotnet <span class="nb">test</span>
+</pre></table></code></div></div><p>Como podemos ver la última prueba que hemos realizado ha fallado, debido a que la función de la clase XmlSerializer que estamos testeando no tiene implementación, vamos a implementar lo que tiene que hacer la función:</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre><span class="k">public</span> <span class="kt">string</span> <span class="n">Serialize</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">item</span><span class="p">)</span> <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="k">class</span>
+<span class="err">{</span>
+    <span class="nc">if</span><span class="p">(</span><span class="n">item</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentNullException</span><span class="p">(</span><span class="k">nameof</span><span class="p">(</span><span class="n">item</span><span class="p">));</span>
+
+    <span class="kt">var</span> <span class="n">serializer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Xml</span><span class="p">.</span><span class="n">Serialization</span><span class="p">.</span><span class="nf">XmlSerializer</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">T</span><span class="p">));</span>
+    <span class="kt">var</span> <span class="n">stringWriter</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">StringWriter</span><span class="p">();</span>
+
+    <span class="kt">var</span> <span class="n">xmlWriter</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">XmlTextWriter</span><span class="p">(</span><span class="n">stringWriter</span><span class="p">);</span>
+    <span class="n">serializer</span><span class="p">.</span><span class="nf">Serialize</span><span class="p">(</span><span class="n">xmlWriter</span><span class="p">,</span> <span class="n">item</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">stringWriter</span><span class="p">.</span><span class="nf">ToString</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Ahora una vez más, arranquemos los test de nuevo y como podréis ver la prueba que era antes incorrecta, ahora es correcta!</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre>dotnet <span class="nb">test
+
+</span>Iniciando la ejecución de pruebas, espere...
+
+Total de pruebas: 2. Correctas: 2. Con error: 0. Omitidas: 0.
+La serie de pruebas se ejecutó correctamente.
+Tiempo de ejecución de las pruebas: 1,1206 Segundos
+</pre></table></code></div></div><p>Como habéis podido observar hemos realizado las pruebas antes que las implementaciones de las clases que queríamos probar. El proceso que hemos realizado ha sido el siguiente:</p><ol><li>Hemos creado las clases sin implementación alguna.<li>Hemos diseñado las pruebas.<li>Hemos ejecutado las pruebas sabiendo que iban a fallar.<li>Al ver que fallaban, hemos añadido la correcta implementación en los métodos que estábamos probando.<li>Hemos vuelto a ejecutar las pruebas hasta que han pasado.</ol><p>Tal vez no os habréis dado cuenta pero hemos seguido el patrón RED - GREEN - REFACTOR. Este patrón se utiliza en TDD (<a href="https://es.wikipedia.org/wiki/Desarrollo_guiado_por_pruebas">Test Driven Development</a>) una práctica que consiste en diseñar primero las pruebas y a partir de las pruebas desarrollar el código final haciendo refactorización.</p><h3 id="atributos">Atributos</h3><p>Atributos de NUnit usados en los ejemplos y otros también se suelen usar:</p><div class="table-wrapper"><table><thead><tr><th>Atributo<th>Tipo<th>Descripción<tbody><tr><td>TestFixture<td>Clase<td>Indica que la clase contiene pruebas unitarias<tr><td>SetUp<td>Método<td>Ejecuta ese método justo antes de la realización de cada uno de los métodos de pruebas<tr><td>Test<td>Método<td>Nos indica que el método es un método de prueba<tr><td>OneTimeSetUp<td>Método<td>Ejecuta el método una única vez antes de iniciar las pruebas del espacio de nombres<tr><td>OneTimeTearDown<td>Método<td>Ejecuta un método una única vez al acabar las pruebas del espacio de nombres<tr><td>SetUpFixture<td>Clase<td>Marca la clase que contiene los métodos OneTimeSetUp o OneTimeTearDown para todas las pruebas del espacio de nombres<tr><td>TestCase<td>Método<td>Marca un método como prueba a la que se le pueden pasar parámetros, se pueden definir múltiples testcases por método</table></div><p>Obviamente hay muchos más atributos e información, para ello <a href="https://github.com/nunit/docs/wiki/Attributes">visita la documentación de NUnit</a> sobre todos los atributos.</p><h3 id="afirmaciones">Afirmaciones</h3><p>Las afirmaciones o assertions son la base de nuestras pruebas, en NUnit hemos utilizado algunos de los métodos estáticos de la clase Assert, para afirmar si las pruebas pasan o no. Hay dos tipos de modelos de afirmación:</p><ul><li>Modelo de restricción (Constraint Model)<li>Modelo Clásico (Classic Model)</ul><p>Aquí solo explicaré el modelo de restricción ya que es el que se usa mayormente en NUnit.</p><h4 id="modelo-de-restricción">Modelo de restricción</h4><p>Se le llama constraint model ya que toma como argumentos constraint objects. Para más información sobre las diferentes restricciones que hay, visitar el <a href="https://github.com/nunit/docs/wiki/Constraints">siguiente enlace</a>.</p><p>Algunos ejemplos de este modelo:</p><h5 id="excepciones">Excepciones</h5><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre><span class="c1">// Verificar si salta una excepción al llamar a un método o función</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="n">WebClient</span><span class="p">.</span><span class="nf">DownloadFile</span><span class="p">(</span><span class="s">"https://myserver.com/resource/file.py"</span><span class="p">);</span>
+<span class="p">},</span> <span class="n">Throws</span><span class="p">.</span><span class="n">Exception</span><span class="p">);</span>
+
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="n">WebClient</span><span class="p">.</span><span class="nf">DownloadFile</span><span class="p">(</span><span class="s">"https://myserver.com/resource/file.py"</span><span class="p">);</span>
+<span class="p">},</span> <span class="n">Throws</span><span class="p">.</span><span class="n">Exception</span><span class="p">.</span><span class="n">TypeOf</span><span class="p">&lt;</span><span class="n">WebException</span><span class="p">&gt;());</span>
+</pre></table></code></div></div><h5 id="operaciones-con-numeros">Operaciones con numeros</h5><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="c1">// Operaciones con numeros</span>
+<span class="kt">int</span> <span class="n">result</span> <span class="p">=</span> <span class="m">4</span> <span class="p">-</span> <span class="m">4</span><span class="p">;</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">Zero</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="n">userListCount</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">Zero</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="n">suma</span> <span class="p">=</span> <span class="m">10</span> <span class="p">+</span> <span class="m">10</span><span class="p">;</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">suma</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="nf">EqualTo</span><span class="p">(</span><span class="m">20</span><span class="p">));</span>
+</pre></table></code></div></div><h5 id="colecciones-que-implementen-ienumerable">Colecciones que implementen IEnumerable</h5><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre><span class="kt">var</span> <span class="n">list</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">.</span><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">4</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">8</span><span class="p">});</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="nf">GreaterThan</span><span class="p">(</span><span class="m">0</span><span class="p">))</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">Empty</span><span class="p">);</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">Contains</span><span class="p">.</span><span class="nf">Item</span><span class="p">(</span><span class="m">4</span><span class="p">))</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">Has</span><span class="p">.</span><span class="nf">Member</span><span class="p">(</span><span class="m">4</span><span class="p">))</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">Has</span><span class="p">.</span><span class="n">No</span><span class="p">.</span><span class="nf">Member</span><span class="p">(</span><span class="m">10</span><span class="p">));</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">Does</span><span class="p">.</span><span class="nf">Contain</span><span class="p">(</span><span class="m">4</span><span class="p">));</span>
+
+<span class="kt">string</span><span class="p">[]</span> <span class="n">sarray</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">string</span><span class="p">[]</span> <span class="p">{</span> <span class="s">"c"</span><span class="p">,</span> <span class="s">"b"</span><span class="p">,</span> <span class="s">"a"</span> <span class="p">};</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">sarray</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">Ordered</span><span class="p">.</span><span class="n">Descending</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="p">[]</span> <span class="n">iarray</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">};</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">iarray</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">Ordered</span><span class="p">);</span>
+</pre></table></code></div></div><h5 id="boleanos">Boleanos</h5><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="kt">bool</span> <span class="n">result</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">True</span><span class="p">);</span>
+
+<span class="kt">bool</span> <span class="n">result</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">False</span><span class="p">);</span>
+</pre></table></code></div></div><h5 id="cadenas">Cadenas</h5><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre><span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">Empty</span><span class="p">);</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="s">"Hello World!"</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">Not</span><span class="p">.</span><span class="n">Empty</span><span class="p">);</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="s">"{'Name':'Paco', 'Age':56}"</span><span class="p">,</span> <span class="n">Does</span><span class="p">.</span><span class="nf">EndWith</span><span class="p">(</span><span class="s">"}"</span><span class="p">))</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="s">"{'Name':'Paco', 'Age':56}"</span><span class="p">,</span> <span class="n">Does</span><span class="p">.</span><span class="nf">StartWith</span><span class="p">(</span><span class="s">"{"</span><span class="p">))</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="s">"{'Name':'Paco', 'Age':56}"</span><span class="p">,</span> <span class="n">Does</span><span class="p">.</span><span class="n">Not</span><span class="p">.</span><span class="nf">StartWith</span><span class="p">(</span><span class="s">"["</span><span class="p">))</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="s">"{'Name':'Paco', 'Age':56}"</span><span class="p">,</span> <span class="n">Does</span><span class="p">.</span><span class="nf">StartWith</span><span class="p">(</span><span class="s">"{'Name':"</span><span class="p">))</span>
+</pre></table></code></div></div><p>Obviamente la información es mucha más extensa y hay muchos más ejemplos. Para más información sobre las afirmaciones (assertions) en NUnit os invito a que visiteis la <a href="https://github.com/nunit/docs/wiki/Assertions">documentación oficial</a></p><h2 id="nsubstitute">NSubstitute</h2><p>Librería para poder crear mocks, esto nos permite poder simular el funcionamiento de nuestras dependencias en las pruebas unitarias.</p><h3 id="características">Características</h3><ul><li>Librería de mocking open source<li>API amigable y con pocas lambdas<li>Perfecta para los que se están iniciando en el mundo de las pruebas unitarias</ul><h3 id="requisitos-1">Requisitos</h3><ul><li>Únicamente se podrán hacer mocks de Interfaces o de los miembros virtuales de las clases</ul><h3 id="ejemplo-crear-mock-de-una-interfaz">Ejemplo crear mock de una interfaz</h3><p>Tenemos nuestra interfaz:</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre><span class="k">public</span> <span class="k">interface</span> <span class="nc">IOperation</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">X</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">Y</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="kt">int</span><span class="p">?</span> <span class="n">Result</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+    
+    <span class="kt">int</span> <span class="nf">MakeOperation</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Ahora creamos un mock de esta</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="kt">var</span> <span class="n">operacion</span> <span class="p">=</span> <span class="n">Substitute</span><span class="p">.</span><span class="n">For</span><span class="p">&lt;</span><span class="n">IOperation</span><span class="p">&gt;();</span>
+</pre></table></code></div></div><p>Podemos decirle a este mock con NSubstitute que nos retorne el resultado que queramos, para así simular su funcionamiento, por ejemplo vamos a simular que hacemos una operación de sumar</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="kt">int</span> <span class="n">result</span> <span class="p">=</span> <span class="n">operation</span><span class="p">.</span><span class="nf">MakeOperation</span><span class="p">(</span><span class="m">50</span><span class="p">,</span> <span class="m">8</span><span class="p">).</span><span class="nf">Returns</span><span class="p">(</span><span class="m">58</span><span class="p">);</span>
+<span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="nf">EqualTo</span><span class="p">(</span><span class="m">58</span><span class="p">));</span>
+</pre></table></code></div></div><p>También podríamos saber si se ha llamado al método con unos parámetros específicos, y del mismo modo si no se ha recibido. Actua como una afirmación (assertion).</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="n">operation</span><span class="p">.</span><span class="nf">Received</span><span class="p">().</span><span class="nf">MakeOperation</span><span class="p">(</span><span class="m">50</span><span class="p">,</span> <span class="m">8</span><span class="p">);</span>
+<span class="n">operation</span><span class="p">.</span><span class="nf">DidNotReceived</span><span class="p">().</span><span class="nf">MakeOperation</span><span class="p">(</span><span class="m">45</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+</pre></table></code></div></div><p>Si lo que queremos es saber si se ha llamado al método con cualquier parámetro, podemos hacer lo siguiente:</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="n">operation</span><span class="p">.</span><span class="nf">Received</span><span class="p">().</span><span class="nf">MakeOperation</span><span class="p">(</span><span class="n">Arg</span><span class="p">.</span><span class="n">Any</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(),</span> <span class="n">Arg</span><span class="p">.</span><span class="n">Any</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;());</span>
+<span class="n">operation</span><span class="p">.</span><span class="nf">Received</span><span class="p">().</span><span class="nf">MakeOperation</span><span class="p">(</span><span class="n">Arg</span><span class="p">.</span><span class="n">Any</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(),</span> <span class="m">60</span><span class="p">);</span>
+</pre></table></code></div></div><p>Del mismo modo podemos hacer que si nos pasan cualquier parámetro, nosotros siempre retornemos el mismo valor, por ejemplo si se llama al método Save para guardar un usuario, con cualquier tipo de parámetro que sea de tipo usuario, siempre devolverá verdadero hasta que nosotros le especifiquemos lo contrario</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">persistance</span><span class="p">.</span><span class="nf">Save</span><span class="p">(</span><span class="n">Arg</span><span class="p">.</span><span class="n">Any</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;()).</span><span class="nf">Returns</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</pre></table></code></div></div><p>Ahora un ejemplo parecido al anterior, pero nos devolverá verdadero únicamente cuando el usuario que se le pase por parámetro tenga una edad superior o igual a 18 años</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">persistance</span><span class="p">.</span><span class="nf">Save</span><span class="p">(</span><span class="n">Arg</span><span class="p">.</span><span class="n">Is</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;(</span><span class="n">u</span> <span class="p">=&gt;</span> <span class="n">u</span><span class="p">.</span><span class="n">Age</span> <span class="p">&gt;=</span> <span class="m">18</span><span class="p">)).</span><span class="nf">Returns</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</pre></table></code></div></div><h2 id="implementando-nsubstitute-en-el-proyecto-net-core">Implementando NSubstitute en el proyecto .NET Core</h2><p>Ahora que tenemos claro lo que es el mocking y hemos visto unos cuantos ejemplos de como crear mocks utilizando la librería NSubstitute. Vamos a proceder a implementarlo en el proyecto de .NET Core y a ponerlo en práctica con un ejemplo real.</p><h3 id="instalando-nsubstitute">Instalando NSubstitute</h3><p>Volvamos al anterior proyecto que hemos usado de NUnit e instalemos la librería NSubstitute con el gestor de paquetes Nuget:</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>dotnet add utils.unittests/utils.unittests.csproj package NSubstitute
+</pre></table></code></div></div><h3 id="creando-nuestro-primer-mock">Creando nuestro primer Mock</h3><p>Ahora que tenemos la librería instalada, vamos a crear una cuantas interfaces en archivos .cs separados en el proyecto utils.csproj:</p><p>ISerializer</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="k">namespace</span> <span class="nn">utils</span> 
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">interface</span> <span class="nc">ISerializer</span>
+    <span class="p">{</span>
+        <span class="kt">string</span> <span class="n">Serialize</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">item</span><span class="p">)</span> <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="k">class</span><span class="err">;</span>
+    <span class="err">}</span>
+<span class="err">}</span>
+</pre></table></code></div></div><p>IWritable</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="k">namespace</span> <span class="nn">utils</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">interface</span> <span class="nc">IWritable</span>
+    <span class="p">{</span>
+        <span class="kt">bool</span> <span class="nf">Write</span><span class="p">(</span><span class="kt">string</span> <span class="n">data</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>IDataExportable</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre><span class="k">namespace</span> <span class="nn">utils</span> 
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">interface</span> <span class="nc">IDataExportable</span>
+    <span class="p">{</span>
+        <span class="n">ISerializer</span> <span class="n">Serializer</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kt">bool</span> <span class="n">Export</span><span class="p">&lt;</span><span class="n">TData</span><span class="p">&gt;</span> <span class="p">(</span><span class="n">TData</span> <span class="n">item</span><span class="p">,</span> <span class="n">IWritable</span> <span class="n">destination</span><span class="p">)</span> <span class="k">where</span> <span class="n">TData</span> <span class="p">:</span> <span class="k">class</span><span class="err">;</span>
+    <span class="err">}</span>
+<span class="err">}</span>
+</pre></table></code></div></div><p>Ahora que tenemos la interfaz ISerializer, vamos hacer lo que pertoca con ella, implementarla en las clases: JsonSerializer y XmlSerializer:</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre><span class="k">public</span> <span class="k">class</span> <span class="nc">JsonSerializer</span> <span class="p">:</span> <span class="n">ISerializer</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">XmlSerializer</span> <span class="p">:</span> <span class="n">ISerializer</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</pre></table></code></div></div><p>Ahora que tenemos nuestras interfaces nuevas y hemos implementado ISerializer en las dos clases que serializan, vamos a crear la clase DataExporter, que va a ser una clase que se ocupará de exportar datos en el formato que nosotros queramos, podrá ser JSON o XML gracias a las clases que habíamos creado con anterioridad. La vamos a crear sin implementación y además implementaremos la interfaz IDataExportable:</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre><td class="rouge-code"><pre><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">utils</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">DataExporter</span> <span class="p">:</span> <span class="n">IDataExportable</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="k">readonly</span> <span class="n">ISerializer</span> <span class="n">_serializer</span><span class="p">;</span>
+
+        <span class="k">public</span> <span class="nf">DataExporter</span><span class="p">(</span><span class="n">ISerializer</span> <span class="n">serializer</span><span class="p">)</span>
+        <span class="p">{</span> 
+            <span class="n">_serializer</span> <span class="p">=</span> <span class="n">serializer</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="n">ISerializer</span> <span class="n">Serializer</span> <span class="p">=&gt;</span> <span class="n">_serializer</span><span class="p">;</span>
+
+        <span class="k">public</span> <span class="kt">bool</span> <span class="n">Export</span><span class="p">&lt;</span><span class="n">TData</span><span class="p">&gt;</span> <span class="p">(</span><span class="n">TData</span> <span class="n">item</span><span class="p">,</span> <span class="n">IWritable</span> <span class="n">destination</span><span class="p">)</span> <span class="k">where</span> <span class="n">TData</span> <span class="p">:</span> <span class="k">class</span>
+        <span class="err">{</span>
+            <span class="nc">throw</span> <span class="k">new</span> <span class="nf">NotImplementedException</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><h3 id="volviendo-a-crear-pruebas">Volviendo a crear pruebas</h3><p>Sencillo, para que más. Ahora que tenemos la estructura básica de la clase y no tenemos implementación, vamos a crear otra prueba en el proyecto utils.tests que habíamos creado, la nueva clase de pruebas se llamará DataExporterTests:</p><p>DataExporterTests</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+</pre><td class="rouge-code"><pre><span class="k">using</span> <span class="nn">NUnit.Framework</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">NSubstitute</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">utils</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">Tests</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">TestFixture</span><span class="p">]</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">DataExporterTests</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="n">DataExporter</span> <span class="n">_dataExporter</span><span class="p">;</span>
+        <span class="k">private</span> <span class="n">ISerializer</span> <span class="n">_serializer</span><span class="p">;</span>
+        <span class="k">private</span> <span class="n">IWritable</span> <span class="n">_writableDestination</span><span class="p">;</span>
+
+        <span class="p">[</span><span class="n">SetUp</span><span class="p">]</span>
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Setup</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">_serializer</span> <span class="p">=</span> <span class="n">Substitute</span><span class="p">.</span><span class="n">For</span><span class="p">&lt;</span><span class="n">ISerializer</span><span class="p">&gt;();</span>
+            <span class="n">_writableDestination</span> <span class="p">=</span> <span class="n">Substitute</span><span class="p">.</span><span class="n">For</span><span class="p">&lt;</span><span class="n">IWritable</span><span class="p">&gt;();</span>
+            <span class="n">_dataExporter</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">DataExporter</span><span class="p">(</span><span class="n">_serializer</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="p">[</span><span class="n">Test</span><span class="p">]</span>
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Export_MethodCall_ShouldReturnTrue</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="c1">// Simulamos la serialización de los datos</span>
+            <span class="kt">string</span> <span class="n">serializerDataSimulation</span> <span class="p">=</span> <span class="s">"Estos son los datos serializados, me da igual el formato que sea"</span><span class="p">;</span>
+            <span class="n">_serializer</span><span class="p">.</span><span class="nf">Serialize</span><span class="p">(</span><span class="n">Arg</span><span class="p">.</span><span class="n">Any</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;()).</span><span class="nf">Returns</span><span class="p">(</span><span class="n">serializerDataSimulation</span><span class="p">);</span>
+
+            <span class="c1">// Simulamos la escritura de los datos en un destino</span>
+            <span class="n">_writableDestination</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="n">serializerDataSimulation</span><span class="p">).</span><span class="nf">Returns</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+
+            <span class="c1">// Actuamos sobre el método que queremos probar</span>
+            <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">_dataExporter</span><span class="p">.</span><span class="nf">Export</span><span class="p">(</span><span class="k">new</span> <span class="nf">User</span><span class="p">(),</span> <span class="n">_writableDestination</span><span class="p">);</span>
+
+            <span class="c1">// Afirmamos que la prueba pase</span>
+            <span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">True</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Ahora ejecutemos las pruebas, cómo ya sabéis… fallarán, no tenemos implementación en la función Export:</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre><td class="rouge-code"><pre>IIniciando la ejecución de pruebas, espere...
+Con error   Export_MethodCall_ShouldReturnTrue
+Mensaje de error:
+ System.NotImplementedException : The method or operation is not implemented.
+Seguimiento de la pila:
+   at utils.DataExporter.Export[TData]<span class="o">(</span>TData item, IWritable destination<span class="o">)</span> <span class="k">in</span> /Users/rubenarrebola/Develop/testing-like-ninjas/Seminary/utils/DataExporter.cs:line 55
+   at Tests.DataExporterTests.Export_MethodCall_ShouldReturnTrue<span class="o">()</span> <span class="k">in</span> /Users/rubenarrebola/Develop/testing-like-ninjas/Seminary/utils.unittests/DataExporterTests.cs:line 30
+
+Total de pruebas: 3. Correctas: 2. Con error: 1. Omitidas: 0.
+No se pudo ejecutar la serie de pruebas.
+Tiempo de ejecución de las pruebas: 1,4639 Segundos
+</pre></table></code></div></div><p>Pues no hay tiempo que perder, vamos a añadir a la función export su correcta implementación</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre><span class="k">public</span> <span class="kt">bool</span> <span class="n">Export</span><span class="p">&lt;</span><span class="n">TData</span><span class="p">&gt;</span> <span class="p">(</span><span class="n">TData</span> <span class="n">item</span><span class="p">,</span> <span class="n">IWritable</span> <span class="n">destination</span><span class="p">)</span> <span class="k">where</span> <span class="n">TData</span> <span class="p">:</span> <span class="k">class</span>
+<span class="err">{</span>
+    <span class="nc">if</span><span class="p">(</span><span class="n">item</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentNullException</span><span class="p">(</span><span class="k">nameof</span><span class="p">(</span><span class="n">item</span><span class="p">));</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">destination</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentNullException</span><span class="p">(</span><span class="k">nameof</span><span class="p">(</span><span class="n">destination</span><span class="p">));</span>
+
+    <span class="kt">bool</span> <span class="n">exportResult</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+
+    <span class="kt">string</span> <span class="n">serializedData</span> <span class="p">=</span> <span class="n">_serializer</span><span class="p">.</span><span class="nf">Serialize</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+
+    <span class="n">exportResult</span> <span class="p">=</span> <span class="n">destination</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="n">serializedData</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">exportResult</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Volvamos a ejecutar las pruebas de nuevo:</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>Iniciando la ejecución de pruebas, espere...
+
+Total de pruebas: 3. Correctas: 3. Con error: 0. Omitidas: 0.
+La serie de pruebas se ejecutó correctamente.
+Tiempo de ejecución de las pruebas: 1,3040 Segundos
+</pre></table></code></div></div><p>Perfecto ya tenemos nuestra última prueba y además hemos realizado mocking de una dependencia. El objetivo del mocking es sencillo, simular el funcionamiento de dependencias el cual no estamos probando en ese momento. Es muy bueno acostumbrarse a separar conceptos y a programar de forma desacoplada, además, las pruebas unitarias se hacen más sencillas, más fáciles de leer y también mas fáciles de mantener. Como resultado final te hace ser mejor desarrollador en todos los aspectos.</p><h2 id="pruebas-de-integración">Pruebas de integración</h2><ul><li>Verifican el correcto funcionamiento del conjunto de elementos que componen el producto<li>Se realizan después de las pruebas unitarias<li>Nos permiten detectar defectos en las interfaces y en la interacción entre los diferentes componentes integrados</ul><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7 " data-src="https://i.ibb.co/sW10Gg4/logger-library-integration-test.png" alt="PruebaIntegracion" /></p><h3 id="requisitos-2">Requisitos</h3><ul><li>Automatizable<li>Completas<li>Independientes<li>Profesionales<li>Fáciles de mantener</ul><h2 id="pruebas-de-integración-en-net-core">Pruebas de integración en .NET Core</h2><p>Ahora que sabemos que son las pruebas de integración, va siendo hora de pasar a una parte mas práctica, vamos a implementar nuestra prueba de integración en .NET Core. Para ello utilizaremos el proyecto que ya tenemos. Así que no perdamos mas tiempo, vamos a ello!</p><p>Primero de todo, vamos a crear una nueva clase, la cual se encargará principalmente de crear un fichero y escribir información en él. Llamaremos a la clase FileWriterHelper e implementará la interfaz IWritable. Debido a que esta clase toca el sistema de ficheros, no vamos hacer una prueba unitara de ella, la cubrirá nuestra futura prueba de integración:</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre><td class="rouge-code"><pre><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">utils</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">FileWriterHelper</span> <span class="p">:</span> <span class="n">IWritable</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">DestinationFile</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">private</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="k">public</span> <span class="nf">FileWriterHelper</span><span class="p">(</span><span class="kt">string</span> <span class="n">destinationFile</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">DestinationFile</span> <span class="p">=</span> <span class="n">destinationFile</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="kt">bool</span> <span class="nf">Write</span><span class="p">(</span><span class="kt">string</span> <span class="n">data</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">bool</span> <span class="n">operationResult</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+
+            <span class="k">using</span> <span class="p">(</span><span class="n">StreamWriter</span> <span class="n">outputFile</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">StreamWriter</span><span class="p">(</span><span class="n">DestinationFile</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="n">outputFile</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+                <span class="n">operationResult</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="n">operationResult</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Ahora creamos un nuevo directorio en la raíz del proyecto, utils.integrationtests, nos situamos en él y creamos el proyecto nuevo:</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+</pre><td class="rouge-code"><pre>dotnet new nunit
+
+<span class="nb">.</span>
+├── testing-example.sln
+├── utils
+│   ├── DataExporter.cs
+│   ├── FileWriterHelper.cs
+│   ├── IDataExportable.cs
+│   ├── ISerializer.cs
+│   ├── IWritable.cs
+│   ├── JsonSerializer.cs
+│   ├── User.cs
+│   ├── XmlSerializer.cs
+│   ├── bin
+│   ├── obj
+│   └── utils.csproj
+├── utils.integrationtests
+│   ├── UnitTest1.cs
+│   ├── obj
+│   │   ├── project.assets.json
+│   └── utils.integrationtests.csproj
+└── utils.unittests
+    ├── DataExporterTests.cs
+    ├── JsonSerializerTests.cs
+    ├── XmlSerializerTests.cs
+    ├── bin
+    ├── obj
+    └── utils.unittests.csproj
+
+16 directories, 65 files
+</pre></table></code></div></div><p>Agregamos nuestro nuevo proyecto a la solución:</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>dotnet sln ../testing-example.sln add utils.integrationtests.csproj
+</pre></table></code></div></div><p>Ahora una referenica unidireccional del proyecto nuevo al proyecto utils</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>dotnet add reference ../utils/utils.csproj 
+</pre></table></code></div></div><p>Ahora que tenemos el proyecto nuevo, vamos a renombrar la clase de test que nos crea de forma automática, cambiamos el nombre del archivo y el de la clase por JsonDataExportationTests e implementamos la siguiente prueba:</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+</pre><td class="rouge-code"><pre><span class="k">using</span> <span class="nn">NUnit.Framework</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">utils</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">Tests</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">JsonDataExportationTests</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="k">const</span> <span class="kt">string</span> <span class="n">FILEPATH</span> <span class="p">=</span> <span class="s">"json_data_export_test.json"</span><span class="p">;</span>
+
+        <span class="k">private</span> <span class="n">DataExporter</span> <span class="n">_dataExporter</span><span class="p">;</span>
+        <span class="k">private</span> <span class="n">ISerializer</span> <span class="n">_serializer</span><span class="p">;</span>
+        <span class="k">private</span> <span class="n">IWritable</span> <span class="n">_writableDestination</span><span class="p">;</span>
+
+        <span class="p">[</span><span class="n">SetUp</span><span class="p">]</span>
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Setup</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">_writableDestination</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">FileWriterHelper</span><span class="p">(</span><span class="n">FILEPATH</span><span class="p">);</span>
+            <span class="n">_serializer</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">JsonSerializer</span><span class="p">();</span>
+            <span class="n">_dataExporter</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">DataExporter</span><span class="p">(</span><span class="n">_serializer</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="p">[</span><span class="n">Test</span><span class="p">]</span>
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">ExportUserDataIntoJsonFormatFile</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kt">string</span> <span class="n">expectedDataResult</span> <span class="p">=</span> <span class="s">@"{""Name"":""Jack"",""LastName"":""Stilson"",""Age"":28,""Email"":""jack23@test.com""}"</span> <span class="p">+</span> <span class="s">"\n"</span><span class="p">;</span>
+            <span class="kt">var</span> <span class="n">user</span> <span class="p">=</span> <span class="k">new</span> <span class="n">User</span> <span class="p">{</span> 
+                <span class="n">Name</span> <span class="p">=</span> <span class="s">"Jack"</span><span class="p">,</span> 
+                <span class="n">LastName</span> <span class="p">=</span> <span class="s">"Stilson"</span><span class="p">,</span> 
+                <span class="n">Age</span> <span class="p">=</span> <span class="m">28</span><span class="p">,</span> 
+                <span class="n">Email</span> <span class="p">=</span> <span class="s">"jack23@test.com"</span> 
+            <span class="p">};</span>
+
+            <span class="n">_dataExporter</span><span class="p">.</span><span class="nf">Export</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">_writableDestination</span><span class="p">);</span>
+
+            <span class="kt">string</span> <span class="n">dataFromFile</span> <span class="p">=</span> <span class="n">File</span><span class="p">.</span><span class="nf">ReadAllText</span><span class="p">(</span><span class="n">FILEPATH</span><span class="p">);</span>
+
+            <span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">dataFromFile</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="nf">EqualTo</span><span class="p">(</span><span class="n">expectedDataResult</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Pasamos las pruebas. Si todo esta correcto, nos exportará los datos del usuario a un fichero y luego comprobará internamente que son los mismos datos que acabamos de serializar en formato JSON:</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre>dotnet <span class="nb">test
+
+</span>Iniciando la ejecución de pruebas, espere...
+
+Total de pruebas: 1. Correctas: 1. Con error: 0. Omitidas: 0.
+La serie de pruebas se ejecutó correctamente.
+Tiempo de ejecución de las pruebas: 1,0825 Segundos
+</pre></table></code></div></div><p>Vamos hacer una prueba mas, ahora vamos a añadir una prueba en la que exportaremos una colección de marcadores web, para ello vamos a crear la siguiente clase en utils:</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre><td class="rouge-code"><pre><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">utils</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">Bookmark</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="n">Guid</span> <span class="n">Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Url</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Ahora vamos a crear la nueva prueba en la que le pasaremos al método de exportación una colección de objetos de tipo Bookmark y afirmaremos que se haya serializado como esperamos. Añadimos la siguiente prueba seguida de una propiedad:</p><div class="language-csharp highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+</pre><td class="rouge-code"><pre><span class="p">[</span><span class="n">Test</span><span class="p">]</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">ExportBookmarkCollectionIntoJsonFormatFile</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">string</span> <span class="n">expectedDataResult</span> <span class="p">=</span> 
+        <span class="s">@"[{""Id"":1,""Name"":""My GitHub"",""Url"":""https://github.com/ruben69695""},"</span> <span class="p">+</span>
+        <span class="s">@"{""Id"":2,""Name"":""StackOverflow"",""Url"":""https://stackoverflow.com/""},"</span> <span class="p">+</span> 
+        <span class="s">@"{""Id"":3,""Name"":""LinkedIn"",""Url"":""https://www.linkedin.com""}]"</span> <span class="p">+</span> <span class="s">"\n"</span><span class="p">;</span>
+
+    <span class="n">_dataExporter</span><span class="p">.</span><span class="nf">Export</span><span class="p">(</span><span class="n">TestBookmarks</span><span class="p">,</span> <span class="n">_writableDestination</span><span class="p">);</span>
+
+    <span class="kt">string</span> <span class="n">dataFromFile</span> <span class="p">=</span> <span class="n">File</span><span class="p">.</span><span class="nf">ReadAllText</span><span class="p">(</span><span class="n">FILEPATH</span><span class="p">);</span>
+
+    <span class="n">Assert</span><span class="p">.</span><span class="nf">That</span><span class="p">(</span><span class="n">dataFromFile</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="nf">EqualTo</span><span class="p">(</span><span class="n">expectedDataResult</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Bookmark</span><span class="p">&gt;</span> <span class="n">TestBookmarks</span> 
+<span class="p">{</span>
+    <span class="k">get</span> 
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Bookmark</span><span class="p">&gt;(</span><span class="k">new</span> <span class="p">[]</span> <span class="p">{</span>
+            <span class="k">new</span> <span class="n">Bookmark</span> <span class="p">{</span> <span class="n">Id</span> <span class="p">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">Name</span> <span class="p">=</span> <span class="s">"My GitHub"</span><span class="p">,</span> <span class="n">Url</span> <span class="p">=</span> <span class="s">"https://github.com/ruben69695"</span> <span class="p">},</span>
+            <span class="k">new</span> <span class="n">Bookmark</span> <span class="p">{</span> <span class="n">Id</span> <span class="p">=</span> <span class="m">2</span><span class="p">,</span> <span class="n">Name</span> <span class="p">=</span> <span class="s">"StackOverflow"</span><span class="p">,</span> <span class="n">Url</span> <span class="p">=</span> <span class="s">"https://stackoverflow.com/"</span> <span class="p">},</span>
+            <span class="k">new</span> <span class="n">Bookmark</span> <span class="p">{</span> <span class="n">Id</span> <span class="p">=</span> <span class="m">3</span><span class="p">,</span> <span class="n">Name</span> <span class="p">=</span> <span class="s">"LinkedIn"</span><span class="p">,</span> <span class="n">Url</span> <span class="p">=</span> <span class="s">"https://www.linkedin.com"</span> <span class="p">},</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></table></code></div></div><p>Pasamos las pruebas de nuevo y como esperabamos, las pruebas pasan correctamente</p><div class="language-bash highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre>dotnet <span class="nb">test
+
+</span>Iniciando la ejecución de pruebas, espere...
+
+Total de pruebas: 2. Correctas: 2. Con error: 0. Omitidas: 0.
+La serie de pruebas se ejecutó correctamente.
+Tiempo de ejecución de las pruebas: 1,8326 Segundos
+</pre></table></code></div></div><h2 id="ejercicios">Ejercicios</h2><p>En el repositorio encontraréis ejercicios que podéis realizar, se divide en 2 directorios, uno con las soluciones y el otro vuestro entorno, dónde váis hacer las pruebas y a refactorizar clases:</p><p>Directorio Seminary.Exercices.Solved, este directorio contiene la solución a los ejercicios, se trata de los siguientes proyectos:</p><ul><li><p>MagicDarkLibraries: Este proyecto contiene las clases que se tienen que probar ya refactorizadas</p><li><p>UnitTests: Este proyecto contiene todas las pruebas unitarias que se piden en los ejercicios de las clases del proyecto MagicDarkLibraries.</p></ul><p>Por otra parte tenemos Seminary.Exercices, este directorio es dónde tendréis que hacer los ejercicios, consta de lo siguiente:</p><ul><li><p>TrollLibraries: Es un proyecto parecido a las MagicDarkLibraries, pero las clases no están refactorizadas, por lo tanto no se pueden probar de forma unitaria. Es aquí dónde os toca trabajar, intentar hacer pruebas unitarias, identificar las dependencias y refactorizar las clases para que sean fáciles de probar sustituyendo las dependencias por abstracciones.</p><li><p>TrollLibraries.UnitTests En este proyecto es dónde vais a hacer las pruebas unitarias de las distintas clases que os pido en los ejercicios.</p></ul><h3 id="ejercicio-codekatasstack">Ejercicio CodeKatasStack</h3><p>Este ejercicio consiste en realizar las pertinentes pruebas unitarias a la clase MyStack. ¿Parece fácil verdad? Bueno esta clase es algo especial…</p><h3 id="ejercicio-installer">Ejercicio Installer</h3><p>Este ejercicio consiste en realizar las pruebas unitarias de la clase InstallerHelper, el problema de esta clase es que necesita de una refactorización, ya que es una clase que no se puede probar de forma unitaria ya que tiene una dependencia que accede a Internet, se escapa del ámbito unitario. Identificad la dependencia, abstraerla y realizar las pertinentes pruebas unitarias.</p><h3 id="ejercicio-logger">Ejercicio Logger</h3><p>Nos encontramos con uno de mis ejercicios favoritos. Esta clase de log, se encarga de hacer log de error en 3 dependencias externas: un fichero, una base de datos y un servicio web. El objetivo es identificar estas dependencias y refactorizar la clase para que sea fácil de probar pero además que sea extensible a hacer log en cualquier otro sitio sin tocar internamente el funcionamiento de la clase una vez refactorizada.</p><h3 id="ejercicio-viewmodel">Ejercicio ViewModel</h3><p>Nos encontramos con el ejercicio más grande. Este ejercicio consiste como en los demás, identificar las dependencias que tiene nuestro view model y refactorizar la clase y sus dependencias para poder probar de forma unitaria el view model. En este ejercicio os doy la libertad de hacerlo como vosotros creáis conveniente y luego comprobaremos el resultado final.</p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/devkid-blog/categories/seminary/'>Seminary</a>, <a href='/devkid-blog/categories/dotnet/'>Dotnet</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/devkid-blog/tags/seminary/" class="post-tag no-text-decoration" >seminary</a> <a href="/devkid-blog/tags/csharp/" class="post-tag no-text-decoration" >csharp</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=Testing like ninjas in C# - DevKid Blog&url=https://ruben69695.github.io/devkid-blog/posts/testing-like-ninjas-csharp-seminay/" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=Testing like ninjas in C# - DevKid Blog&u=https://ruben69695.github.io/devkid-blog/posts/testing-like-ninjas-csharp-seminay/" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://telegram.me/share?text=Testing like ninjas in C# - DevKid Blog&url=https://ruben69695.github.io/devkid-blog/posts/testing-like-ninjas-csharp-seminay/" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i class="fa-fw fas fa-link small" onclick="copyLink()" data-toggle="tooltip" data-placement="top" title="Copy link"></i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted topbar-down"><div class="access"><div id="access-tags"> <span>Trending Tags</span><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/devkid-blog/tags/getting-started/">getting started</a> <a class="post-tag" href="/devkid-blog/tags/azure/">azure</a> <a class="post-tag" href="/devkid-blog/tags/csharp/">csharp</a> <a class="post-tag" href="/devkid-blog/tags/jenkins/">jenkins</a> <a class="post-tag" href="/devkid-blog/tags/seminary/">seminary</a></div></div></div><div id="toc-wrapper" class="pl-0 pr-4 mb-5"> <span class="pl-3 pt-2 mb-2">Contents</span><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div class="col-12 col-lg-11 col-xl-8"><div id="post-extend-wrapper" class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><div id="related-posts" class="mt-5 mb-2 mb-sm-4"><h3 class="pt-2 mt-1 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/devkid-blog/posts/azure-for-dummies/"><div class="card-body"> <span class="timeago small" > Dec 16, 2019 <i class="unloaded">2019-12-16T16:59:22+01:00</i> </span><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Microsoft Azure for Dummies</h3><div class="text-muted small"><p> Seminario de introducción a la plataforma cloud de Microsoft Azure Para empezar Azure es un conjunto completo y en expansión constante de servicios de informática en la nube que nos ayuda a afro...</p></div></div></a></div><div class="card"> <a href="/devkid-blog/posts/getting-started-with-jenkins/"><div class="card-body"> <span class="timeago small" > Sep 17, 2019 <i class="unloaded">2019-09-17T17:59:22+02:00</i> </span><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Empezando con Jenkins</h3><div class="text-muted small"><p> Introducción a la herramienta Jenkins para incrementar y asegurar la calidad de nuestros desarrollos en equipo usando integración continua. Integración Continua Consiste en la automatización conti...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <span class="btn btn-outline-primary disabled"><p>-</p></span> <a href="/devkid-blog/posts/getting-started-with-jenkins/" class="btn btn-outline-primary"><p>Empezando con Jenkins</p></a></div></div></div></div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script> <script type="text/javascript"> const imgs = document.querySelectorAll('#post-wrapper img'); const observer = lozad(imgs); observer.observe(); </script><footer class="d-flex w-100 justify-content-center"><div class="d-flex justify-content-between align-items-center"><div class="footer-left"><p class="mb-0"> © 2020 <a href="https://twitter.com/rarrebolaedcm15">Rubén Arrebola</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0"> Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy/" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-xl-11 post-content"><div id="search-hints"><h4 class="text-muted mb-4">Trending Tags</h4><a class="post-tag" href="/devkid-blog/tags/getting-started/">getting started</a> <a class="post-tag" href="/devkid-blog/tags/azure/">azure</a> <a class="post-tag" href="/devkid-blog/tags/csharp/">csharp</a> <a class="post-tag" href="/devkid-blog/tags/jenkins/">jenkins</a> <a class="post-tag" href="/devkid-blog/tags/seminary/">seminary</a></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.3/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/devkid-blog/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="https://ruben69695.github.io{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"><div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>{categories}</div><div><i class="fa fa-tag fa-fw"></i>{tags}</div></div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>' }); </script> <script async src="https://www.googletagmanager.com/gtag/js?id="></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', ''); </script>

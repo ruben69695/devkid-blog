@@ -1,0 +1,5 @@
+User-agent: *
+
+Disallow: /norobots/
+
+Sitemap: https://ruben69695.github.io/devkid-blog/sitemap.xml
